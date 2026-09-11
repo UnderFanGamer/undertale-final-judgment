@@ -352,7 +352,8 @@
             <div class="progress-container">
                 <div class="progress-item">
                     <span class="progress-label">Current Version</span>
-                    <span class="progress-value" id="current-version">Checking...</span>
+                    <!-- МЕНЯЙ ВЕРСИЮ ЗДЕСЬ -->
+                    <span class="progress-value" id="current-version">v1.0.0</span>
                 </div>
                 <div class="progress-item">
                     <span class="progress-label">Development Status</span>
@@ -360,7 +361,8 @@
                 </div>
                 <div class="progress-item">
                     <span class="progress-label">Latest Changelog</span>
-                    <span class="progress-value" id="latest-changelog" style="max-width: 60%;">Loading...</span>
+                    <!-- МЕНЯЙ CHANGELOG ЗДЕСЬ -->
+                    <span class="progress-value" id="latest-changelog" style="max-width: 60%;">Initial release - Basic multiplayer arena, 3 characters, 2 maps</span>
                 </div>
             </div>
         </div>
@@ -372,7 +374,8 @@
             <h2 class="section-title">Download</h2>
             <p style="color: var(--text-gray); margin-bottom: 24px;">Ready to face the judgment? Get the latest version of the game below.</p>
             <a href="https://github.com/UnderFanGamer/undertale-final-judgment/releases/latest" target="_blank" rel="noopener noreferrer" class="btn btn-primary" id="download-btn">Download Game</a>
-            <p class="version-info">Latest Version: <span id="download-version">Checking...</span> | Windows</p>
+            <!-- МЕНЯЙ ВЕРСИЮ ЗДЕСЬ -->
+            <p class="version-info">Latest Version: <span id="download-version">v1.0.0</span> | Windows</p>
         </div>
     </section>
 
@@ -397,48 +400,24 @@
         </div>
     </footer>
 
-    <!-- VERSION CHECK SCRIPT -->
+    <!-- VERSION UPDATE SCRIPT -->
     <script>
         // Set current year in footer
         document.getElementById('year').textContent = new Date().getFullYear();
 
-        // GitHub API endpoint for latest release
-        const GITHUB_API_URL = 'https://api.github.com/repos/UnderFanGamer/undertale-final-judgment/releases/latest';
+        // ============================================
+        // НАСТРОЙКИ ВЕРСИИ (МЕНЯЙ ТОЛЬКО ЗДЕСЬ)
+        // ============================================
+        const GAME_VERSION = "v1.0.0";
+        const GAME_CHANGELOG = "Initial release - Basic multiplayer arena, 3 characters, 2 maps";
+        // ============================================
 
-        // Version check logic
-        async function fetchVersionInfo() {
-            const versionElements = {
-                current: document.getElementById('current-version'),
-                changelog: document.getElementById('latest-changelog'),
-                download: document.getElementById('download-version')
-            };
-
-            try {
-                const response = await fetch(GITHUB_API_URL);
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                
-                const data = await response.json();
-
-                // Update DOM elements
-                const versionText = data.tag_name || 'v1.0.0';
-                versionElements.current.textContent = versionText;
-                versionElements.download.textContent = versionText;
-                versionElements.changelog.textContent = data.body ? data.body.substring(0, 150) + '...' : 'No changelog available.';
-
-            } catch (error) {
-                console.warn("Could not fetch version info from GitHub API.", error);
-                const fallbackVersion = "v1.0.0";
-                versionElements.current.textContent = fallbackVersion;
-                versionElements.download.textContent = fallbackVersion;
-                versionElements.changelog.textContent = "Unable to load latest changelog.";
-            }
-        }
-
-        // Run version check when DOM is fully loaded
-        document.addEventListener('DOMContentLoaded', fetchVersionInfo);
+        // Update version on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('current-version').textContent = GAME_VERSION;
+            document.getElementById('download-version').textContent = GAME_VERSION;
+            document.getElementById('latest-changelog').textContent = GAME_CHANGELOG;
+        });
     </script>
 </body>
 </html>
